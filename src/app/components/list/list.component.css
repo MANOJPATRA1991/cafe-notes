@@ -1,0 +1,10 @@
+#list-actions {
+    justify-content: center;
+    display: flex;
+}
+
+#btn-create {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}

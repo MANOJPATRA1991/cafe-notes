@@ -16,6 +16,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     // Get list of coffee
     this.data.getList(list => {
+      console.log(list);
       this.list = list;
     });
   }
