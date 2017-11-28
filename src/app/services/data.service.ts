@@ -17,6 +17,7 @@ export class DataService {
       new Coffee("Double Espresso", "Sunny Cafe", new PlaceLocation("123 Market St", "San Fransisco")),
       new Coffee("Caramel Americano", "Starcoffee", new PlaceLocation("Gran via 34", "Madrid"))
     ];
+    callback(list);
   }
 
   /**
