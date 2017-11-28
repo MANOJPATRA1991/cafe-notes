@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-coffee',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoffeeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
+
+  routingSubscription: any;
 
   ngOnInit() {
+    // Subscribe to route parameters
+    this.routingSubscription = this.route.params.subscribe(params => {
+      console.log(params["id"]);
+    })
+  }
+
+  ngOnDestroy() {
+    this.routingSubscription.unsubscibe();
   }
 
 }
