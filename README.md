@@ -9,6 +9,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 1. [Angular material](https://material.angular.io/guide/getting-started)
 2. [Angular](https://angular.io/guide/quickstart)
+3. [Angular Animations](https://angular.io/guide/animations)
+4. [Hammerjs](https://hammerjs.github.io/) for detecting gestures on mobile devices
 
 ## Test requirements
 
