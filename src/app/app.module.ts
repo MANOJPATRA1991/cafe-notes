@@ -12,6 +12,7 @@ import {
   MatCardModule,
   MatSlideToggleModule
 } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 import 'hammerjs';
 
 import { GeolocationService } from './services/geolocation.service';
@@ -20,7 +21,6 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './components/list/list.component';
 import { CoffeeComponent } from './components/coffee/coffee.component';
 import { routes } from './routing';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { routes } from './routing';
     RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
