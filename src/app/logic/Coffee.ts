@@ -8,9 +8,9 @@ export class Coffee {
     tastingRating: TasteRating;
 
     constructor(
-        public name: string,
-        public place: string,
-        public location: PlaceLocation
+        public name: string = "",
+        public place: string = "",
+        public location: PlaceLocation = null
     ) {
         
     }
