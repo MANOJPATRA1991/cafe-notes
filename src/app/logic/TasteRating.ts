@@ -1,4 +1,4 @@
-class TasteRating {
+export class TasteRating {
     aroma: number;
     body: number;
     flavor: number;

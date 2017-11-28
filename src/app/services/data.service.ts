@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Coffee } from '../logic/Coffee';
 
 @Injectable()
 export class DataService {
