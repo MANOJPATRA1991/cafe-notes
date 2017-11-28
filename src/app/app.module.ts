@@ -16,10 +16,14 @@ import {
   MatSlideToggleModule
 } from '@angular/material';
 import 'hammerjs';
+import { ListComponent } from './components/list/list.component';
+import { CoffeeComponent } from './components/coffee/coffee.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ListComponent,
+    CoffeeComponent
   ],
   imports: [
     BrowserModule,
