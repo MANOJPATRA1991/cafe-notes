@@ -6,6 +6,7 @@ export class Coffee {
     rating: number;
     notes: string;
     tasteRating: TasteRating;
+    _id: string;
 
     constructor(
         public name: string = "",
