@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 import { 
   MatButtonModule,
   MatIconModule,
@@ -21,6 +22,7 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './components/list/list.component';
 import { CoffeeComponent } from './components/coffee/coffee.component';
 import { routes } from './routing';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +34,7 @@ import { routes } from './routing';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    HttpModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
