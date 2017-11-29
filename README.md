@@ -5,12 +5,16 @@ A Progressive web app to make note of places where one can drink coffee.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
+
 ## App dependencies
 
 1. [Angular material](https://material.angular.io/guide/getting-started)
 2. [Angular](https://angular.io/guide/quickstart)
 3. [Angular Animations](https://angular.io/guide/animations)
 4. [Hammerjs](https://hammerjs.github.io/) for detecting gestures on mobile devices
+5. [Material icons](https://material.io/icons/)
+6. [NeDB](https://github.com/louischatriot/nedb) for database storage on server side
+7. [express-nedb-rest](https://github.com/bi-tm/express-nedb-rest) adds RESTAPI support for nedb database
 
 ## Test requirements
 
