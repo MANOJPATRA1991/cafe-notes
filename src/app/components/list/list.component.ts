@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { Coffee } from '../../logic/Coffee';
 
@@ -9,7 +10,8 @@ import { Coffee } from '../../logic/Coffee';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService,
+              private router: Router) { }
 
   list: [Coffee];
 
@@ -19,6 +21,14 @@ export class ListComponent implements OnInit {
       console.log(list);
       this.list = list;
     });
+  }
+
+  /**
+   * Edit coffee details
+   * @param {Coffee} coffee 
+   */
+  editDetails(coffee: Coffee) {
+    this.router.navigate(["/coffee", coffee._id]);
   }
 
 }
