@@ -11,7 +11,8 @@ import {
   MatSliderModule,
   MatToolbarModule,
   MatCardModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import 'hammerjs';
@@ -42,6 +43,7 @@ import { routes } from './routing';
     MatSliderModule,
     MatToolbarModule,
     MatCardModule,
+    MatSnackBarModule,
     MatSlideToggleModule
   ],
   providers: [
