@@ -16,16 +16,18 @@ import {
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import 'hammerjs';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import { GeolocationService } from './services/geolocation.service';
 import { DataService } from './services/data.service';
+
 import { AppComponent } from './app.component';
 import { ListComponent } from './components/list/list.component';
 import { CoffeeComponent } from './components/coffee/coffee.component';
+
 import { routes } from './routing';
 
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [

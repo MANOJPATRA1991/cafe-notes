@@ -36,12 +36,11 @@ export class AppComponent {
           "There is an update available",
           "Install now",
           {
-            duration: 4000
+            duration: 5000
           }
         );
         sb.onAction().subscribe(() => {
-          this.ngsw.activateUpdate().then(event => {
-            console.log("App was updated");
+          this.ngsw.activateUpdate().then(() => {
             location.reload();
           });
         });
@@ -83,8 +82,22 @@ export class AppComponent {
             (event as any).userChoice.then( result => {
               if (result.outcome === "dismissed") {
                 //TODO: Track no installation
+                this.snackbar.open(
+                  "App installation dismissed",
+                  "",
+                  {
+                    duration: 2000
+                  }
+                );
               } else {
                 //TODO: It was installed
+                this.snackbar.open(
+                  "App installed",
+                  "",
+                  {
+                    duration: 2000
+                  }
+                );
               }
             })
           });

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Coffee } from '../../logic/Coffee';
 import { Form } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GeolocationService } from '../../services/geolocation.service';
+
+import { Coffee } from '../../logic/Coffee';
 import { TasteRating } from '../../logic/TasteRating';
+
+import { GeolocationService } from '../../services/geolocation.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -19,7 +21,7 @@ export class CoffeeComponent implements OnInit {
               private router: Router,
               private data: DataService
             ) { }
-
+  
   coffee: Coffee;
   tasteEnabled: boolean = false;
   // Coffee types
@@ -35,6 +37,7 @@ export class CoffeeComponent implements OnInit {
   coffeeId: any;
 
   ngOnInit() {
+
     // Create a new Coffee object
     this.coffee = new Coffee();
     
