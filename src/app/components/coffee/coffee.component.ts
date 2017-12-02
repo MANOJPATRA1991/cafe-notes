@@ -95,4 +95,15 @@ export class CoffeeComponent implements OnInit {
     });
   }
 
+  /**
+   * Delete coffee details from database
+   */
+  delete() {
+    this.data.delete(this.coffee, result => {
+      if (result) {
+        this.router.navigate(["/"]);
+      }
+    });
+  }
+
 }

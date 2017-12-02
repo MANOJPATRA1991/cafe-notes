@@ -55,4 +55,16 @@ export class DataService {
       }) 
     }
   }
+
+  /**
+   * Delete coffee from the list
+   * @param {Coffee} coffee : Coffee details 
+   * @param {function} callback : Handle response 
+   */
+  delete(coffee, callback) {
+    this.http.delete(`${this.endpoint}/coffees/${coffee._id}`)
+    .subscribe(response => {
+      callback(true);
+    })
+  }
 }
