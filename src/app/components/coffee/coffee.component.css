@@ -13,3 +13,11 @@ mat-card-title {
 mat-slider {
     width: 100%;
 }
+
+#btn-delete {
+    background: #3f51b5;
+    color: red;
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
