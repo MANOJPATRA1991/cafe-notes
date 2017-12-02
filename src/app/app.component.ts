@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { SwUpdate } from '@angular/service-worker';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,11 +9,52 @@ import { MatSnackBar } from '@angular/material';
 })
 export class AppComponent {
 
-  constructor(private snackbar: MatSnackBar) {
+  constructor(
+    private snackbar: MatSnackBar,
+    private ngsw: SwUpdate
+  ) {
 
   }
 
+  /**
+   * Update UI based on online or offline
+   */ 
+  updateNetworkStatusUI () {
+    if(navigator.onLine) {
+      (document.querySelector("body") as any).style = "";
+    } else {
+      // 100% OFFLINE
+      (document.querySelector("body") as any).style = "filter: grayscale(1)";
+    }
+  }
+
   ngOnInit() {
+    // Checking SW update status
+    this.ngsw.available.subscribe(update => {
+      if (update.type == 'UPDATE_AVAILABLE') {
+        const sb = this.snackbar.open(
+          "There is an update available",
+          "Install now",
+          {
+            duration: 4000
+          }
+        );
+        sb.onAction().subscribe(() => {
+          this.ngsw.activateUpdate().then(event => {
+            console.log("App was updated");
+            location.reload();
+          });
+        });
+      }
+    })
+    this.ngsw.checkForUpdate();
+
+    // Checking network status
+    this.updateNetworkStatusUI();
+    window.addEventListener("online", this.updateNetworkStatusUI);
+    window.addEventListener("offline", this.updateNetworkStatusUI);
+
+    // Checking installation status
     if ((navigator as any).standalone === false) {
       // This is an iOS device and we are in the browser
       this.snackbar.open(

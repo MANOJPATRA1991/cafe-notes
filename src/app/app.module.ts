@@ -24,6 +24,9 @@ import { ListComponent } from './components/list/list.component';
 import { CoffeeComponent } from './components/coffee/coffee.component';
 import { routes } from './routing';
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,10 @@ import { routes } from './routing';
     MatToolbarModule,
     MatCardModule,
     MatSnackBarModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    environment.production
+    ? ServiceWorkerModule.register('/ngsw-worker.js')
+    : []
   ],
   providers: [
     GeolocationService,
