@@ -15,13 +15,17 @@ export class ListComponent implements OnInit {
               private router: Router,
               private geoLocation: GeolocationService) { }
 
-  list: [Coffee];
+  list: Coffee[];
 
   ngOnInit() {
     // Get list of coffee
     this.data.getList(list => {
-      console.log(list);
-      this.list = list;
+      this.list = [];
+      list.forEach(elem => {
+        let item = elem.payload.toJSON();
+        item["_id"] = elem.key;
+        this.list.push(item as Coffee);
+      });
     });
   }
 

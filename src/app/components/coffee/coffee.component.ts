@@ -23,6 +23,7 @@ export class CoffeeComponent implements OnInit {
             ) { }
   
   coffee: Coffee;
+
   tasteEnabled: boolean = false;
   // Coffee types
   types = [
@@ -43,10 +44,10 @@ export class CoffeeComponent implements OnInit {
     
     // Subscribe to route parameters
     this.routingSubscription = this.route.params.subscribe(params => {
-      console.log(params["id"]);
       if (params["id"]) {
         this.data.getCoffee(params["id"], response => {
-          this.coffee = response;
+            this.coffee = response;
+            this.coffee["_id"] = params["id"];
           if (this.coffee.tasteRating) {
             this.tasteEnabled = true;
           }
