@@ -1,17 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { SwUpdate } from '@angular/service-worker';
+import { SwUpdate, SwPush } from '@angular/service-worker';
+
+import { Http } from '@angular/http';
+import { environment } from '../environments/environment';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { DataService } from './services/data.service';
+import { UserserviceService } from './services/userservice.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
 
   constructor(
     private snackbar: MatSnackBar,
-    private ngsw: SwUpdate
+    private ngsw: SwUpdate,
+    private ngsp: SwPush,
+    private http: Http,
+    private data: DataService,
+    private user: UserserviceService,
+    private router: Router,
+    public fbAuth: AngularFireAuth
   ) {
 
   }
@@ -28,7 +42,64 @@ export class AppComponent {
     }
   }
 
+  /**
+   * Subscribe for push notifications
+   */
+  subscribeToPush() {
+    if((Notification as any).permission === 'granted') {
+      this.ngsp.unsubscribe()
+      .then(() => {
+        this.snackbar.open(
+          "You are no longer subscribed to receive notifications",
+          "",
+          {
+            duration: 4000
+          }
+        );
+      })
+    }
+    else {
+      this.ngsp.requestSubscription({
+        serverPublicKey: environment.config.VAPID_PUBLIC_KEY
+      })
+      .then(pushSubscription => {
+        console.log(pushSubscription);
+        this.snackbar.open(
+          "You are now subscribed to push notifications",
+          "",
+          {
+            duration: 5000
+          }
+        );
+      });
+    }
+  }
+
+  /**
+   * Go to login page
+   */
+  goToLogin() {
+    this.router.navigate(["/login"]);
+  }
+
+  /**
+   * Logout user
+   */
+  logout() {
+    this.user.logout();
+    this.router.navigate(["/"]);
+  }
+
   ngOnInit() {
+    // If user is not logged in
+    this.fbAuth.authState.subscribe(user => {
+      if(!user) {
+        this.goToLogin();
+      }
+    });
+
+    this.data.pushNotification();
+    
     // Checking SW update status
     this.ngsw.available.subscribe(update => {
       if (update.type == 'UPDATE_AVAILABLE') {
