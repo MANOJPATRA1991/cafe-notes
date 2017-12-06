@@ -1,4 +1,4 @@
-# Coffeeapp
+# Cafe-Notes
 
 
 A Progressive web app to make note of places where one can drink coffee. This app was developed by me during the process of learning Progress Web App development with Angular 4. 
