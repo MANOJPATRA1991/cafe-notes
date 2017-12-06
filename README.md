@@ -1,7 +1,7 @@
 # Coffeeapp
 
 
-A Progressive web app to make note of places where one can drink coffee. 
+A Progressive web app to make note of places where one can drink coffee. This app was developed by me during the process of learning Progress Web App development with Angular 4. 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 

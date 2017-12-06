@@ -22,8 +22,10 @@ export class CoffeeComponent implements OnInit {
               private data: DataService
             ) { }
   
+  deactivate: boolean = false;
+  
   coffee: Coffee;
-
+  
   tasteEnabled: boolean = false;
   // Coffee types
   types = [
@@ -47,7 +49,6 @@ export class CoffeeComponent implements OnInit {
       if (params["id"]) {
         this.data.getCoffee(params["id"], response => {
             this.coffee = response;
-            this.coffee["_id"] = params["id"];
           if (this.coffee.tasteRating) {
             this.tasteEnabled = true;
           }

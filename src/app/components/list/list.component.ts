@@ -20,12 +20,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     // Get list of coffee
     this.data.getList(list => {
-      this.list = [];
-      list.forEach(elem => {
-        let item = elem.payload.toJSON();
-        item["_id"] = elem.key;
-        this.list.push(item as Coffee);
-      });
+      this.list = list;
     });
   }
 

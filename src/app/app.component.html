@@ -3,9 +3,6 @@
   <a (click)="subscribeToPush()" md-button>
     <mat-icon>message</mat-icon>
   </a>
-  <p *ngIf="fbAuth.auth.currentUser"> Hi {{ fbAuth.auth.currentUser.displayName }}</p>
-  <button *ngIf="fbAuth.auth.currentUser" mat-raised-button color="accent" (click)="logout()">Logout</button>
-  <button *ngIf="!fbAuth.auth.currentUser" mat-raised-button color="accent" (click)="goToLogin()">Login</button>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

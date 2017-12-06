@@ -1,4 +1,9 @@
 button {
-    position: fixed;
+    position: absolute;
     right: 10px;
+}
+
+p {
+    font-size: 15px;
+    font-style: italic;
 }

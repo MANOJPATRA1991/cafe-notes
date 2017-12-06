@@ -3,11 +3,10 @@ import { MatSnackBar } from '@angular/material';
 import { SwUpdate, SwPush } from '@angular/service-worker';
 
 import { Http } from '@angular/http';
-import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
+
+import { environment } from '../environments/environment';
 import { DataService } from './services/data.service';
-import { UserserviceService } from './services/userservice.service';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +22,7 @@ export class AppComponent {
     private ngsp: SwPush,
     private http: Http,
     private data: DataService,
-    private user: UserserviceService,
-    private router: Router,
-    public fbAuth: AngularFireAuth
+    private router: Router
   ) {
 
   }
@@ -75,30 +72,7 @@ export class AppComponent {
     }
   }
 
-  /**
-   * Go to login page
-   */
-  goToLogin() {
-    this.router.navigate(["/login"]);
-  }
-
-  /**
-   * Logout user
-   */
-  logout() {
-    this.user.logout();
-    this.router.navigate(["/"]);
-  }
-
   ngOnInit() {
-    // If user is not logged in
-    this.fbAuth.authState.subscribe(user => {
-      if(!user) {
-        this.goToLogin();
-      }
-    });
-
-    this.data.pushNotification();
     
     // Checking SW update status
     this.ngsw.available.subscribe(update => {

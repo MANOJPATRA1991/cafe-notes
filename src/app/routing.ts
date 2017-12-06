@@ -1,23 +1,19 @@
 import { Routes } from "@angular/router";
 import { ListComponent } from "./components/list/list.component";
 import { CoffeeComponent } from "./components/coffee/coffee.component";
-import { LoginComponent } from "./components/login/login.component";
 
 export const routes: Routes = [
     {
         path: '',
+        redirectTo: 'list', 
+        pathMatch: 'full' 
+    },
+    {
+        path: 'list',
         component: ListComponent
     },
     {
         path: 'coffee',
         component: CoffeeComponent
-    },
-    {
-        path: 'coffee/:id',
-        component: CoffeeComponent
-    },
-    {
-        path: 'login',
-        component: LoginComponent
     }
 ];
