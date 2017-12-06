@@ -15,5 +15,9 @@ export const routes: Routes = [
     {
         path: 'coffee',
         component: CoffeeComponent
+    },
+    {
+        path: 'coffee/:id',
+        component: CoffeeComponent
     }
 ];
