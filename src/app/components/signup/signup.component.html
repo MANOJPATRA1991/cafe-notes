@@ -1,3 +1,29 @@
-<p>
-  signup works!
-</p>
+<form #formData="ngForm">
+    <mat-card>
+      <mat-card-title>
+        <mat-icon>lock_outline</mat-icon>
+        <br>
+        Sign up
+      </mat-card-title>
+
+      <mat-card-subtitle class="error" *ngIf="error" [@fallIn]='state'>
+        {{error}}
+      </mat-card-subtitle>
+      
+      <mat-form-field>
+          <input matInput placeholder="User Name" 
+            name="name" [(ngModel)]="user.displayName">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Email" 
+            name="email" [(ngModel)]="user.email">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Password" 
+            name="password" [(ngModel)]="user.password">
+      </mat-form-field>
+
+      <button mat-raised-button [disabled]="!formData.valid" color="accent" (click)="signUp()">Create my account</button>
+    </mat-card>
+    
+  </form>
