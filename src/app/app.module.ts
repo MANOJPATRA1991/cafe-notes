@@ -32,6 +32,9 @@ import { CoffeeComponent } from './components/coffee/coffee.component';
 
 import { routes } from './routing';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +57,9 @@ import { routes } from './routing';
     MatCardModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : []
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
+    AngularFireDatabaseModule
   ],
   providers: [
     GeolocationService,
