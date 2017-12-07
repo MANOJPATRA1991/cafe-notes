@@ -1,3 +1,26 @@
-<p>
-  email works!
-</p>
+<form #formData="ngForm">
+    <mat-card>
+      <mat-card-title>
+        <mat-icon>lock_outline</mat-icon>
+        <br>
+        Log in
+      </mat-card-title>
+
+      <mat-card-subtitle class="error" *ngIf="error" [@fallIn]='state'>
+        {{error}}
+      </mat-card-subtitle>
+
+      <mat-form-field>
+          <input matInput placeholder="Email" 
+            name="email" [(ngModel)]="user.email">
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput placeholder="Password" 
+            name="password" [(ngModel)]="user.password">
+      </mat-form-field>
+
+      <button mat-raised-button [disabled]="!formData.valid" color="accent" (click)="login()">Log in</button>
+      <a mat-raised-button routerLink="/signup" > Don't have an account?</a>
+    </mat-card>
+    
+  </form>
