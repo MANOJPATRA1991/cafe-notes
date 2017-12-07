@@ -34,13 +34,20 @@ import { routes } from './routing';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LoginComponent } from './components/login/login.component';
+import { EmailComponent } from './components/email/email.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
-    CoffeeComponent
+    CoffeeComponent,
+    LoginComponent,
+    EmailComponent,
+    SignupComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -59,7 +66,8 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [],
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     GeolocationService,
