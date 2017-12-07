@@ -69,9 +69,8 @@ export class UserserviceService {
     ).then((response) => {
       callback(true);
     })
-    .catch(error => {
-      // Create user if user doesn't exist
-      
+    .catch(err => {
+      callback(err);
     });
   }
 
