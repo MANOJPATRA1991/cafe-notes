@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserserviceService } from '../../services/userservice.service';
 
-import {moveIn} from '../router.animations';
+import { moveIn } from '../../router.animations';
 
 @Component({
   selector: 'app-login',

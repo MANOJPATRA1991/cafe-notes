@@ -1,0 +1,22 @@
+#lock {
+    text-align: center;
+}
+
+mat-icon {
+    font-size: 40px;
+}
+
+button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#fb {
+    background-color: #3b5998;
+    color: white;
+}
+
+#google {
+    background-color: #f1f1f1;
+    color: #000;
+}

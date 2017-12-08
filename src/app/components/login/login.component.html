@@ -1,6 +1,6 @@
 <form>
   <mat-card>
-    <mat-card-title>
+    <mat-card-title id="lock">
       <mat-icon>lock_outline</mat-icon>
       <br>
       Log in
@@ -8,8 +8,8 @@
     <mat-card-subtitle class="error" *ngIf="error">
       {{error}}
     </mat-card-subtitle>
-    <button mat-raised-button (click)="loginFb()">Facebook</button>
-    <button mat-raised-button color="accent" (click)="loginGoogle()">Google</button>
+    <button id="fb" mat-raised-button (click)="loginFb()">Facebook</button>
+    <button id="google" mat-raised-button color="accent" (click)="loginGoogle()">Google</button>
     <button mat-raised-button color="accent" routerLink="/login-email">Email</button>
   </mat-card>
   
