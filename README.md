@@ -25,14 +25,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Future enhancements coming soon
 
-1. Add form validation
-2. Add error handling
+1. ``Add form validation``
+2. ``Add error handling``
 3. Use IndexedDB to store updates while offline
 4. Use the background sync API for updating the background
 5. Add server-side rendering for the initial view using Angular universal
 6. Create a web push server architecture
-7. Improve desktop and tablet view
-8. Authentication and Database per user
+7. ``Improve desktop and tablet view``
+8. ``Authentication and Database per user``
 
 ## App dependencies
 
