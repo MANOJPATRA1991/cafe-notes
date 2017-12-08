@@ -8,3 +8,9 @@
     right: 20px;
     bottom: 20px;
 }
+
+#btn-log-out {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}

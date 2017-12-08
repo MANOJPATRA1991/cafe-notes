@@ -1,27 +1,58 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { DataService } from '../../services/data.service';
 import { Coffee } from '../../logic/Coffee';
 import { GeolocationService } from '../../services/geolocation.service';
+import { UserserviceService } from '../../services/userservice.service';
+import { moveIn, fallIn, moveInLeft } from '../../router.animations';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
+  animations: [moveIn(), fallIn(), moveInLeft()],
+  host: {'[@moveIn]': ''}
 })
 export class ListComponent implements OnInit {
-
-  constructor(private data: DataService,
-              private router: Router,
-              private geoLocation: GeolocationService) { }
-
+  
   list: Coffee[];
+  name: any;
+  state: string = '';
+
+  constructor(
+    private data: DataService,
+    private router: Router,
+    private geoLocation: GeolocationService,
+    public fbAuth: AngularFireAuth,
+    private userService: UserserviceService
+  ) { 
+    this.fbAuth.authState.subscribe(user => {
+      if(user) {
+        this.name = user.displayName;
+      }
+    })
+  }
+
 
   ngOnInit() {
     // Get list of coffee
     this.data.getList(list => {
-      this.list = list;
+      this.list = [];
+      console.log(list);
+      list.map(_coffee => {
+        var item = _coffee.payload.toJSON();
+        console.log(_coffee);
+        this.list.push(_coffee as Coffee);
+      }); 
     });
+  }
+
+  /**
+   * Log out user
+   */
+  logout() {
+    this.userService.logout();
   }
 
   /**
