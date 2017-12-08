@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserserviceService } from '../../services/userservice.service';
 
-import {moveIn, fallIn} from '../router.animations';
+import { moveIn, fallIn } from '../../router.animations';
 
 import { User } from '../../logic/User';
 
@@ -47,6 +47,7 @@ export class EmailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = new User();
   }
 
 }

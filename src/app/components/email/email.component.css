@@ -1,0 +1,11 @@
+mat-form-field, button, a {
+    width: 100%;
+}
+
+#lock {
+    text-align: center;
+}
+
+mat-icon {
+    font-size: 40px;
+}
