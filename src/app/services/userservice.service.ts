@@ -39,7 +39,9 @@ export class UserserviceService {
   }
 
   /**
-   * Sign up user with email and password
+   * Sign up user with email and password 
+   * @param {User} user : User data
+   * @param {Function} callback : Callback function
    */
   signUp (user, callback) {
     this.fbAuth.auth.createUserWithEmailAndPassword(
@@ -79,6 +81,7 @@ export class UserserviceService {
    */
   logout() {
     this.fbAuth.auth.signOut();
+    this.router.navigate(["/login"]);
   }
 
 }
