@@ -23,22 +23,25 @@ import { environment } from '../environments/environment';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
-import { GeolocationService } from './services/geolocation.service';
-import { DataService } from './services/data.service';
-
 import { AppComponent } from './app.component';
-import { ListComponent } from './components/list/list.component';
-import { CoffeeComponent } from './components/coffee/coffee.component';
-
-import { routes } from './routing';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { routes } from './routing';
+
+import { ListComponent } from './components/list/list.component';
+import { CoffeeComponent } from './components/coffee/coffee.component';
 import { LoginComponent } from './components/login/login.component';
 import { EmailComponent } from './components/email/email.component';
 import { SignupComponent } from './components/signup/signup.component';
 
+import { ActivateGuard } from './guards/activate.guard';
+
+import { GeolocationService } from './services/geolocation.service';
+import { DataService } from './services/data.service';
+import { UserserviceService } from './services/userservice.service';
 
 @NgModule({
   declarations: [
@@ -72,10 +75,12 @@ import { SignupComponent } from './components/signup/signup.component';
   providers: [
     GeolocationService,
     DataService,
+    UserserviceService,
     {
       provide: LocationStrategy, 
       useClass: HashLocationStrategy
-    }
+    },
+    ActivateGuard
   ],
   bootstrap: [AppComponent]
 })
