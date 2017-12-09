@@ -4,3 +4,10 @@ body {
     background: #efdacb;
     margin: 0;
 }
+
+@media screen and (min-width: 768px) {
+    html {
+        width: 700px;
+        margin: 0 auto;
+    }
+}
