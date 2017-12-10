@@ -83,7 +83,5 @@ To test this app,
 
 5. Move into the dist folder and run `simplehttpserver`.
 
-6. Also you need to run the server with `node index` from the server directory which can be found inside this repository. 
-
 6. Go to *http://localhost:8000* (8000 is the default port for simplehttpserver) to see the app.
 
