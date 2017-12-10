@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 
 import { environment } from '../environments/environment';
 import { DataService } from './services/data.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+declare var idbKeyval: any;
 
 @Component({
   selector: 'app-root',
@@ -22,22 +25,9 @@ export class AppComponent {
     private ngsp: SwPush,
     private http: Http,
     private data: DataService,
-    private router: Router
-  ) {
-
-  }
-
-  /**
-   * Update UI based on online or offline
-   */ 
-  updateNetworkStatusUI () {
-    if(navigator.onLine) {
-      (document.querySelector("body") as any).style = "";
-    } else {
-      // 100% OFFLINE
-      (document.querySelector("body") as any).style = "filter: grayscale(1)";
-    }
-  }
+    private router: Router,
+    private fbAuth: AngularFireAuth
+  ) { }
 
   /**
    * Subscribe for push notifications
@@ -72,8 +62,53 @@ export class AppComponent {
     }
   }
 
+  /**
+   * Retrieve all coffees from the collection
+   */
+  getCoffeesFromCollection() {
+    const key = 'coffees';
+    return idbKeyval.get(key)
+    .then(values => {
+      let coffees = [];
+      if (values !== undefined) {
+        coffees = JSON.parse(values) || [];
+      }
+      return coffees;
+    });
+  }
+
+  
+  /**
+   * Update list page
+   */
+  updateList() {
+    this.getCoffeesFromCollection()
+    .then(coffees => {
+      coffees.forEach(coffee => {
+        this.data.saveToFirebase(coffee);
+      });
+      return true;
+    })
+    .then(res => {
+      this.data.removeAllCoffees();
+      location.reload();
+    })
+  }
+
+  /**
+   * Update UI based on online or offline
+   */ 
+  updateNetworkStatusUI () {
+    if(navigator.onLine) {
+      (document.querySelector("body") as any).style = "";
+    } else {
+      // 100% OFFLINE
+      (document.querySelector("body") as any).style = "filter: grayscale(1)";
+    }
+  }
+
   ngOnInit() {
-    
+
     // Checking SW update status
     this.ngsw.available.subscribe(update => {
       if (update.type == 'UPDATE_AVAILABLE') {
@@ -90,12 +125,17 @@ export class AppComponent {
           });
         });
       }
-    })
+    });
+
     this.ngsw.checkForUpdate();
 
     // Checking network status
     this.updateNetworkStatusUI();
-    window.addEventListener("online", this.updateNetworkStatusUI);
+
+    window.addEventListener("online", () => {
+      this.updateNetworkStatusUI();
+      this.updateList();
+    });
     window.addEventListener("offline", this.updateNetworkStatusUI);
 
     // Checking installation status
@@ -109,6 +149,7 @@ export class AppComponent {
         }
       );
     }
+
     if ((navigator as any).standalone === undefined) {
       // It's not iOS
       if (window.matchMedia("display-mode: browser").matches) {
@@ -126,7 +167,7 @@ export class AppComponent {
             (event as any).prompt();
             (event as any).userChoice.then( result => {
               if (result.outcome === "dismissed") {
-                //TODO: Track no installation
+                // Track no installation
                 this.snackbar.open(
                   "App installation dismissed",
                   "",
@@ -135,7 +176,7 @@ export class AppComponent {
                   }
                 );
               } else {
-                //TODO: It was installed
+                // It was installed
                 this.snackbar.open(
                   "App installed",
                   "",
