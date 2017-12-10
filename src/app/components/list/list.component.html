@@ -1,27 +1,31 @@
-<button [@fallIn]='state' id="btn-log-out" mat-button (click)="logout()">
-  Log out
-</button>
+<div>
+  <mat-card id="name" [@moveInLeft]='state'>
+    <mat-card-title>
+      Hey {{ name }}
+    </mat-card-title>
 
-<mat-card [@moveInLeft]='state'>
-  Hey {{ name }}
-</mat-card>
+    <button mat-raised-button color="accent" id="log-out" [@fallIn]='state' id="btn-log-out" mat-button (click)="logout()">
+      Log out
+    </button>
 
-<mat-card *ngFor="let coffee of list">
-  <mat-card-title>{{ coffee.name }}</mat-card-title>
-  <mat-card-subtitle>Place: {{ coffee.place }}</mat-card-subtitle>
-  <mat-card-actions id="list-actions">
-    <button (click)="goToMap(coffee)" mat-button>
-      <mat-icon>map</mat-icon>
-    </button>
-    <button (click)="share(coffee)" mat-button>
-      <mat-icon>share</mat-icon>
-    </button>
-    <button (click)="editDetails(coffee)" mat-button>
-      <mat-icon>list</mat-icon>
-    </button>
-  </mat-card-actions>
-</mat-card>
+  </mat-card>
 
+  <mat-card *ngFor="let coffee of list">
+    <mat-card-title>{{ coffee.name }}</mat-card-title>
+    <mat-card-subtitle>Place: {{ coffee.place }}</mat-card-subtitle>
+    <mat-card-actions id="list-actions">
+      <button (click)="goToMap(coffee)" mat-button>
+        <mat-icon>map</mat-icon>
+      </button>
+      <button (click)="share(coffee)" mat-button>
+        <mat-icon>share</mat-icon>
+      </button>
+      <button (click)="editDetails(coffee)" mat-button>
+        <mat-icon>list</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 <a id="btn-create" mat-fab routerLink="/coffee">
   <mat-icon>create</mat-icon>
 </a>

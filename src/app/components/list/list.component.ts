@@ -14,6 +14,7 @@ import { moveIn, fallIn, moveInLeft } from '../../router.animations';
   animations: [moveIn(), fallIn(), moveInLeft()],
   host: {'[@moveIn]': ''}
 })
+
 export class ListComponent implements OnInit {
   
   list: Coffee[];
@@ -37,15 +38,18 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     // Get list of coffee
-    this.data.getList(list => {
-      this.list = [];
-      console.log(list);
-      list.map(_coffee => {
-        var item = _coffee.payload.toJSON();
-        console.log(_coffee);
-        this.list.push(_coffee as Coffee);
-      }); 
-    });
+    if(navigator.onLine) {
+      this.data.getList(list => {
+        this.list = [];
+        list.forEach(_coffee => {
+          console.log(_coffee.toJSON());
+          var it = _coffee.toJSON();
+          it["_id"] = _coffee.key;
+          this.list.push(it as Coffee);
+          console.log(this.list);
+        });
+      });
+    }
   }
 
   /**

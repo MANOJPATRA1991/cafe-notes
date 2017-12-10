@@ -13,4 +13,36 @@
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 20;
+    background-color: rebeccapurple;   
 }
+
+#name {
+    margin: 10px 0;
+}
+
+#name button {
+    margin-top: 10px;
+}
+
+div {
+    height: 92vh;
+    overflow-x: hidden;
+}
+
+@media screen and (min-width: 768px) {
+    mat-card {
+        width: 650px;
+    }
+
+    #btn-create {
+        position: fixed;
+        right: 20%;
+        bottom: 20px;
+    }
+
+    div {
+        width: 700px;
+    }
+}
+
