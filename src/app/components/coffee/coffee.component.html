@@ -87,7 +87,7 @@
     <mat-card>
       <button mat-raised-button (click)="cancel()">Cancel</button>
       <button mat-raised-button color="accent" id="save" (click)="save()">Save</button>
-      <button mat-raised-button color="accent" id="delete" *ngIf="coffee.name !== ''" (click)="delete()">Delete</button>
+      <button mat-raised-button color="accent" id="delete" *ngIf="coffee['_id']" (click)="delete()">Delete</button>
     </mat-card>
     
 </form>

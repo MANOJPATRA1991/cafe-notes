@@ -63,7 +63,8 @@ export class CoffeeComponent implements OnInit {
         this.coffee.location.latitude = location.latitude;
         this.coffee.location.longitude = location.longitude;
       } else if (typeof location === 'string') {
-        
+        this.coffee.location.latitude = null;
+        this.coffee.location.longitude = null;
       }
     });
   }
