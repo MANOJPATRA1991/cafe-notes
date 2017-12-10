@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { UserserviceService } from '../services/userservice.service';
@@ -19,17 +23,13 @@ export class ActivateGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      this.fbAuth.authState.subscribe(user => {
-        if(user) {
-          this.currentUser = true;
+    state: RouterStateSnapshot): Observable<boolean> {
+      return this.fbAuth.authState
+      .take(1).map(state => !!state)
+      .do(authenticated => {
+        if (!authenticated) {
+          this.router.navigate(["/login"]);
         }
       });
-      if(this.currentUser) {
-        return true;
-      } else {
-        this.router.navigate(["/login"]);
-        return false;
-      }
     }
 }

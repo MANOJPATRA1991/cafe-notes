@@ -80,8 +80,10 @@ export class UserserviceService {
    * Log out user
    */
   logout() {
-    this.fbAuth.auth.signOut();
-    this.router.navigate(["/login"]);
+    if (navigator.onLine) {
+      this.fbAuth.auth.signOut();
+      this.router.navigate(["/login"]);
+    }
   }
 
 }
