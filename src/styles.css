@@ -11,3 +11,19 @@ body {
         margin: 0 auto;
     }
 }
+
+#offline-div {
+    margin: 50% auto;
+    margin-bottom: 0;
+    width: 200px;
+}
+
+#offline-div img {
+    width: 50%;
+    height: 50%;
+    margin: 0 50px;
+}
+
+#offline-div h1, #offline-div h2 {
+    text-align: center;
+}
