@@ -20,3 +20,9 @@ button {
     background-color: #f1f1f1;
     color: #000;
 }
+
+@media screen and (min-width: 768px) {
+    form {
+        width: 700px;
+    }
+}
