@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UserserviceService } from '../../services/userservice.service';
-
+import { DataService } from '../../services/data.service';
 import { moveIn, fallIn } from '../../router.animations';
 
 import { User } from '../../logic/User';
@@ -24,7 +24,8 @@ export class EmailComponent implements OnInit {
   constructor(
     public fbAuth: AngularFireAuth,
     private router: Router,
-    private userService: UserserviceService
+    private userService: UserserviceService,
+    private data: DataService
   ) { 
     this.fbAuth.authState.subscribe(user => {
       if(user) {
