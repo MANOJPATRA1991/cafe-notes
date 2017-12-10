@@ -44,7 +44,8 @@
   }, {
     "name": "api-performance",
     "urls": [
-      "/"
+      "/",
+      "/list"
     ],
     "cacheConfig": {
       "maxSize": 100,
