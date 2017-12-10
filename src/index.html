@@ -22,12 +22,15 @@
 </head>
 <body>
   <app-root>
-    <img src="icons/icon_96.png" 
+    <div id="offline-div">
+      <img id="offline-img" src="icons/icon_96.png" 
       srcset="icons/icon_144.png 3x, icons/icon_192.png 4x" alt="App icon"
       width="48" height="48">
 
-    <h1>Cafe Notes</h1>
-    <h2>Please wait...</h2>
+      <h1>Cafe Notes</h1>
+      <h2>Please wait...</h2>
+    </div>
   </app-root>
+  <script src="./assets/idb-keyval-min.js"></script>
 </body>
 </html>
