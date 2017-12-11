@@ -1,14 +1,14 @@
-<form>
+<form #formData="ngForm">
     <mat-card>
       <mat-card-title>
         Basic Coffee Information
       </mat-card-title>
       <mat-form-field>
-          <input matInput placeholder="Coffee Name" 
+          <input matInput placeholder="Coffee Name(required)" required
             name="name" [(ngModel)]="coffee.name">
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Coffee Type" name="type" [(ngModel)]="coffee.type">
+        <mat-select placeholder="Coffee Type(required)" name="type" required [(ngModel)]="coffee.type">
           <mat-option *ngFor="let type of types" [value]="type">
             {{ type }}
           </mat-option>
@@ -21,15 +21,15 @@
         Place Information
       </mat-card-title>
       <mat-form-field>
-          <input matInput placeholder="Place" 
+          <input matInput placeholder="Place(required)" required
             name="place" [(ngModel)]="coffee.place">
       </mat-form-field>
       <mat-form-field>
-          <input matInput placeholder="Address" 
+          <input matInput placeholder="Address"
             name="address" [(ngModel)]="coffee.location.address">
       </mat-form-field>
       <mat-form-field>
-          <input matInput placeholder="City" 
+          <input matInput placeholder="City"
             name="city" [(ngModel)]="coffee.location.city">
       </mat-form-field>
     </mat-card>
@@ -39,7 +39,7 @@
         Ratings
       </mat-card-title>
       <mat-card-subtitle>Overall Rating</mat-card-subtitle>
-      <mat-slider max="10" thumbLabel name="rating" 
+      <mat-slider max="10" thumbLabel name="rating"
         [(ngModel)]="coffee.rating" tickInterval="1"></mat-slider>
 
       <!-- tastingSelector is the template reference variable for mat-slide-toggle -->
@@ -86,7 +86,7 @@
 
     <mat-card>
       <button mat-raised-button (click)="cancel()">Cancel</button>
-      <button mat-raised-button color="accent" id="save" (click)="save()">Save</button>
+      <button mat-raised-button color="accent" id="save" (click)="save()" [disabled]="!formData.valid">Save</button>
       <button mat-raised-button color="accent" id="delete" *ngIf="coffee['_id']" (click)="delete()">Delete</button>
     </mat-card>
     
