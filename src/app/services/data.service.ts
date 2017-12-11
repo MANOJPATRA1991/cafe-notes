@@ -24,9 +24,6 @@ export class DataService {
     private router: Router,
     private snackbar: MatSnackBar
   ) { }
-
-  // BASE URL
-  public endpoint = "http://localhost:3000";
   
   /**
    * Get coffee details by id
@@ -63,25 +60,50 @@ export class DataService {
    * @param {Coffee} coffee : Coffee details 
    * @param {function} callback : Handle response 
    */
-  save(coffee, callback) {
-    this.addToCollection(coffee)
-    .then(() => {
-      if (navigator.onLine) {
-        this.saveToFirebase(coffee, callback);
-      } else {
-        this.snackbar.open(
-          "Coffee will be updated as soon as network is available",
-          "",
-          {
-            duration: 3000
-          }
-        );
-        setTimeout(
-          () => {
-            callback(true);
-        }, 3000);
+  save(coffee) {
+    let isPresent = false;
+    if (navigator.onLine) {
+      // Check if data is already present in the database
+      this.fbDatabase
+      .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
+      .query.orderByChild("name")
+      .equalTo(`${coffee.name}`).once("value")
+      .then((snapshot) => {
+
+        console.log(snapshot.val());
+        if((snapshot.val().name === coffee.name) && (snapshot.val().place === coffee.place)) {
+          isPresent = true;
+          this.snackbar.open(
+            "Coffee already in the database",
+            "",
+            {
+              duration: 3000
+            }
+          );
+          setTimeout(() => {
+            this.router.navigate(["/"]);
+          }, 3000);
+        }
+      });
+
+      if (!isPresent) {
+        this.addToCollection(coffee)
+        .then(() => {
+            this.saveToFirebase(coffee);
+        });
       }
-    });
+    } else {
+      this.snackbar.open(
+        "Coffee will be updated as soon as network is available",
+        "",
+        {
+          duration: 3000
+        }
+      );
+      setTimeout(() => {
+        this.router.navigate(["/"]);
+      }, 3000);
+    }
   }
 
   /**
@@ -124,11 +146,9 @@ export class DataService {
   addToCoffeesList(data, coffee) {
     let coffees = [];
     if (data !== undefined) {
-      console.log(data);
       coffees = JSON.parse(data) || [];
     }
     coffees.push(coffee);
-    console.log(coffees);
     return coffees;
   }
 
@@ -137,7 +157,7 @@ export class DataService {
    * @param {Coffee} coffee : Coffee to add 
    * @param {Function} callback : Callback function
    */
-  saveToFirebase(coffee, callback) {
+  saveToFirebase(coffee) {
     // It's an update
     if(coffee._id) {
       this.fbDatabase
@@ -151,8 +171,9 @@ export class DataService {
         }
         let n = new Notification("Update", options);
         setTimeout(n.close.bind(n), 4000);
-
-        callback(true);
+        this.removeCoffeeFromCollection();
+        
+        this.router.navigate(["/"]);
       });
     } else {
       // It's an insert
@@ -172,8 +193,9 @@ export class DataService {
           }
           let n = new Notification("New coffee added", options);
           setTimeout(n.close.bind(n), 4000);
-
-          callback(true);
+          this.removeCoffeeFromCollection();
+          
+          this.router.navigate(["/"]);
         });
       });
     }
@@ -183,10 +205,9 @@ export class DataService {
    * Remove coffee from indexed DB collection
    */
   removeCoffeeFromCollection() {
-    return this.getCoffeesFromCollection()
+    this.getCoffeesFromCollection()
     .then(coffees => {
       coffees.pop();
-      console.log(coffees);
       return coffees;
     })
     .then(coffees => {

@@ -93,11 +93,7 @@ export class CoffeeComponent implements OnInit {
    * Save coffee details to database
    */
   save() {
-    this.data.save(this.coffee, result => {
-      if (result) {
-        this.router.navigate(["/"]);
-      }
-    });
+    this.data.save(this.coffee);
   }
 
   /**
