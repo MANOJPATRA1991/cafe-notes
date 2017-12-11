@@ -5,14 +5,11 @@ import { DataService } from '../../services/data.service';
 import { Coffee } from '../../logic/Coffee';
 import { GeolocationService } from '../../services/geolocation.service';
 import { UserserviceService } from '../../services/userservice.service';
-import { moveIn, fallIn, moveInLeft } from '../../router.animations';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css'],
-  animations: [moveIn(), fallIn(), moveInLeft()],
-  host: {'[@moveIn]': ''}
+  styleUrls: ['./list.component.css']
 })
 
 export class ListComponent implements OnInit {

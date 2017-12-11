@@ -4,11 +4,11 @@
         Basic Coffee Information
       </mat-card-title>
       <mat-form-field>
-          <input matInput placeholder="Coffee Name(required)" required
+          <input matInput placeholder="Coffee Name" required
             name="name" [(ngModel)]="coffee.name">
       </mat-form-field>
       <mat-form-field>
-        <mat-select placeholder="Coffee Type(required)" name="type" required [(ngModel)]="coffee.type">
+        <mat-select placeholder="Coffee Type" name="type" required [(ngModel)]="coffee.type">
           <mat-option *ngFor="let type of types" [value]="type">
             {{ type }}
           </mat-option>
@@ -21,7 +21,7 @@
         Place Information
       </mat-card-title>
       <mat-form-field>
-          <input matInput placeholder="Place(required)" required
+          <input matInput placeholder="Place" required
             name="place" [(ngModel)]="coffee.place">
       </mat-form-field>
       <mat-form-field>

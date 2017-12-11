@@ -1,10 +1,10 @@
 <div>
-  <mat-card id="name" [@moveInLeft]='state'>
+  <mat-card id="name">
     <mat-card-title>
       Hey {{ name }}
     </mat-card-title>
 
-    <button mat-raised-button color="accent" id="log-out" [@fallIn]='state' id="btn-log-out" mat-button (click)="logout()">
+    <button mat-raised-button color="accent" id="log-out" id="btn-log-out" mat-button (click)="logout()">
       Log out
     </button>
 
