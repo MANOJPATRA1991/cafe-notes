@@ -186,7 +186,8 @@ export class AppComponent {
 
     // Checking network status
     this.updateNetworkStatusUI();
-
+    this.updateList();
+    
     window.addEventListener("online", () => {
       this.updateNetworkStatusUI();
       this.updateList();

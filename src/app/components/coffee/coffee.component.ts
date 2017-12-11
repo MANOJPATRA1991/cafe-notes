@@ -16,11 +16,12 @@ import { DataService } from '../../services/data.service';
 })
 export class CoffeeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute,
-              private geolocation: GeolocationService,
-              private router: Router,
-              private data: DataService
-            ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private geolocation: GeolocationService,
+    private router: Router,
+    private data: DataService
+  ) { }
   
   deactivate: boolean = false;
   
