@@ -6,6 +6,10 @@ mat-form-field, button, a {
     width: 100%;
 }
 
+button {
+    margin-bottom: 10px;
+}
+
 @media screen and (min-width: 768px) {
     form {
         width: 700px;
