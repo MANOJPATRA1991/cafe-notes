@@ -63,15 +63,11 @@ export class DataService {
    * @param {Coffee} coffee : Coffee details 
    * @param {function} callback : Handle response 
    */
-  save(coffee, callback, removeAll=false) {
+  save(coffee, callback) {
     this.addToCollection(coffee)
     .then(() => {
       if (navigator.onLine) {
-        this.saveToFirebase(coffee);
-        if(!removeAll) {
-          this.removeCoffeeFromCollection();
-        }
-        callback(true);
+        this.saveToFirebase(coffee, callback);
       } else {
         this.snackbar.open(
           "Coffee will be updated as soon as network is available",
@@ -141,22 +137,24 @@ export class DataService {
    * @param {Coffee} coffee : Coffee to add 
    * @param {Function} callback : Callback function
    */
-  saveToFirebase(coffee) {
+  saveToFirebase(coffee, callback) {
     // It's an update
     if(coffee._id) {
       this.fbDatabase
       .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
-      .update(`${coffee._id}`, coffee);
+      .update(`${coffee._id}`, coffee)
+      .then(() => {
+        // Push notification on coffee update
+        let options = {
+          body: `${coffee.name} details are updated`,
+          icon: "../../icons/icon_96.png"
+        }
+        let n = new Notification("Update", options);
+        setTimeout(n.close.bind(n), 4000);
 
-      // Push notification on coffee update
-      let options = {
-        body: `${coffee.name} details are updated`,
-        icon: "../../icons/icon_96.png"
-      }
-      let n = new Notification("Update", options);
-      setTimeout(n.close.bind(n), 4000);
+        callback(true);
+      });
     } else {
-    
       // It's an insert
       this.fbDatabase
       .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
@@ -165,16 +163,19 @@ export class DataService {
         coffee["_id"] = response.key;
         this.fbDatabase
         .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
-        .update(response.key, coffee);
-      });
+        .update(response.key, coffee)
+        .then(() => {
+          // Push notification when new coffee is added
+          let options = {
+            body: `${coffee.name} is added to coffee list`,
+            icon: "../../icons/icon_96.png"
+          }
+          let n = new Notification("New coffee added", options);
+          setTimeout(n.close.bind(n), 4000);
 
-      // Push notification when new coffee is added
-      let options = {
-        body: `${coffee.name} is added to coffee list`,
-        icon: "../../icons/icon_96.png"
-      }
-      let n = new Notification("New coffee added", options);
-      setTimeout(n.close.bind(n), 4000);
+          callback(true);
+        });
+      });
     }
   }
 
