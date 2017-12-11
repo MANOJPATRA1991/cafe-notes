@@ -38,7 +38,6 @@ export class ListComponent implements OnInit {
     this.data.getList(list => {
       this.list = [];
       list.forEach(_coffee => {
-        console.log(_coffee.toJSON());
         var it = _coffee.toJSON();
         it["_id"] = _coffee.key;
         this.list.push(it as Coffee);

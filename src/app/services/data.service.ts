@@ -61,37 +61,28 @@ export class DataService {
    * @param {function} callback : Handle response 
    */
   save(coffee) {
-    let isPresent = false;
     if (navigator.onLine) {
       // Check if data is already present in the database
-      this.fbDatabase
-      .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
-      .query.orderByChild("name")
+      this.fbDatabase.database.ref(`${this.fbAuth.auth.currentUser.uid}/coffees`)
+      .orderByChild("name")
       .equalTo(`${coffee.name}`).once("value")
       .then((snapshot) => {
-
-        console.log(snapshot.val());
-        if((snapshot.val().name === coffee.name) && (snapshot.val().place === coffee.place)) {
-          isPresent = true;
+        let obj = snapshot.val()[Object.keys(snapshot.val())[0]];
+        if(obj.name === coffee.name && obj.place === coffee.place) {
           this.snackbar.open(
-            "Coffee already in the database",
+            "Similar data already in the database",
             "",
             {
               duration: 3000
             }
           );
-          setTimeout(() => {
-            this.router.navigate(["/"]);
-          }, 3000);
+        } else {
+          this.addToCollection(coffee)
+          .then(() => {
+              this.saveToFirebase(coffee);
+          });
         }
       });
-
-      if (!isPresent) {
-        this.addToCollection(coffee)
-        .then(() => {
-            this.saveToFirebase(coffee);
-        });
-      }
     } else {
       this.snackbar.open(
         "Coffee will be updated as soon as network is available",
