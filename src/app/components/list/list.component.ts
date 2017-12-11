@@ -75,7 +75,7 @@ export class ListComponent implements OnInit {
    * @param {Coffee} coffee 
    */
   share(coffee: Coffee) {
-    const shareText = `I had this coffee at ${coffee.place} and for me it's a ${coffee.rating} star coffee`;
+    const shareText = `I had ${coffee.name} at ${coffee.place} and for me it's a ${coffee.rating} star coffee`;
     // Check if web share API is available in browser
     if ('share' in navigator) {
       navigator['share']({
