@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 
 import { environment } from '../environments/environment';
 import { DataService } from './services/data.service';
+import { 
+  AngularFireDatabase, 
+  AngularFireList 
+} from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 declare var idbKeyval: any;
@@ -26,6 +30,7 @@ export class AppComponent {
     private http: Http,
     private data: DataService,
     private router: Router,
+    private fbDatabase: AngularFireDatabase,
     private fbAuth: AngularFireAuth
   ) { }
 
@@ -77,22 +82,72 @@ export class AppComponent {
     });
   }
 
-  
+  /**
+   * Save Coffee to database
+   * @param {Coffee} coffee : Coffee
+   * @returns Promise
+   */
+  saveToFirebase(coffee) {
+    // It's an update
+    if(coffee._id) {
+      return this.fbDatabase
+      .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
+      .update(`${coffee._id}`, coffee)
+      .then(response => {
+        // Push notification on coffee update
+        let options = {
+          body: `${coffee.name} details are updated`,
+          icon: "../../icons/icon_96.png"
+        }
+        let n = new Notification("Update", options);
+        setTimeout(n.close.bind(n), 4000);
+        return response;
+      });
+    } else {
+      // It's an insert
+      return this.fbDatabase
+      .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
+      .push(coffee)
+      .then(response => {
+        coffee["_id"] = response.key;
+        this.fbDatabase
+        .list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
+        .update(response.key, coffee)
+        .then(response => {
+          // Push notification when new coffee is added
+          let options = {
+            body: `${coffee.name} is added to coffee list`,
+            icon: "../../icons/icon_96.png"
+          }
+          let n = new Notification("New coffee added", options);
+          setTimeout(n.close.bind(n), 4000);
+          return response;
+        });
+      });
+    }
+  }
+
+  /**
+   * Save coffees to database when online
+   * @param {Coffee} coffees : List of coffees saved in offline database
+   */
+  mapAndSaveAll(coffees) {
+    return coffees.map(
+      coffee => this.saveToFirebase(coffee)
+        .then(response => response)
+    );
+  }
+
   /**
    * Update list page
    */
   updateList() {
     this.getCoffeesFromCollection()
     .then(coffees => {
-      coffees.forEach(coffee => {
-        this.data.saveToFirebase(coffee);
-      });
-      return true;
+      Promise.all(this.mapAndSaveAll(coffees));
     })
-    .then(res => {
-      this.data.removeAllCoffees();
-      location.reload();
-    })
+    .catch(err => console.log('unable to save coffees to server', err))
+    .then(response => this.data.removeAllCoffees());
   }
 
   /**

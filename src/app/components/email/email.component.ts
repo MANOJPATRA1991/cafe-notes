@@ -31,7 +31,7 @@ export class EmailComponent implements OnInit {
       if(user) {
         this.router.navigate(["/list"]);
       }
-    })
+    });
   }
 
   /**

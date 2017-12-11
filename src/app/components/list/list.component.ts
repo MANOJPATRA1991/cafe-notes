@@ -38,18 +38,15 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     // Get list of coffee
-    if(navigator.onLine) {
-      this.data.getList(list => {
-        this.list = [];
-        list.forEach(_coffee => {
-          console.log(_coffee.toJSON());
-          var it = _coffee.toJSON();
-          it["_id"] = _coffee.key;
-          this.list.push(it as Coffee);
-          console.log(this.list);
-        });
+    this.data.getList(list => {
+      this.list = [];
+      list.forEach(_coffee => {
+        console.log(_coffee.toJSON());
+        var it = _coffee.toJSON();
+        it["_id"] = _coffee.key;
+        this.list.push(it as Coffee);
       });
-    }
+    });
   }
 
   /**

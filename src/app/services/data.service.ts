@@ -9,6 +9,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { Coffee } from '../logic/Coffee';
 import { PlaceLocation } from '../logic/PlaceLocation';
+import 'rxjs/add/operator/takeLast';
 
 declare var idbKeyval: any;
 const key = 'coffees';
@@ -47,9 +48,14 @@ export class DataService {
   getList(callback) {
     this.fbDatabase.database
     .ref(`${this.fbAuth.auth.currentUser.uid}/coffees`)
-    .once('value', (snapshot) => {
+    .on('value', (snapshot) => {
       callback(snapshot);
     });
+
+    this.fbDatabase.list(`${this.fbAuth.auth.currentUser.uid}/coffees`)
+    .snapshotChanges().takeLast(1).subscribe(coffees => {
+      callback(coffees);
+    })
   }
 
   /**
@@ -212,7 +218,9 @@ export class DataService {
    */
   removeAllCoffees() {
     return idbKeyval.clear()
-    .then(() => console.log('All coffees removed from collection'))
+    .then(() => {
+      console.log('All coffees removed from collection');
+    })
     .catch(err => console.log('Unable to remove coffees from outbox', err));
   }
 }
