@@ -1,9 +1,9 @@
 # Cafe-Notes
 
 
-A Progressive web app to make note of places where one can drink coffee. This app was developed by me during the process of learning Progress Web App development with Angular 4. 
+A Progressive web app to make note of places where one can drink coffee. This app was developed by me during the process of learning Progress Web App development with Angular 5.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.0.
 
 ## What did I learn
 
